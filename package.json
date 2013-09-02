@@ -1,0 +1,20 @@
+{
+  "name": "String_random.js",
+  "version": "0.0.1",
+  "description": "Generating random string from regexp pattern.",
+  "main": "lib/String_random.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node test/test.js"
+  },
+  "repository": "",
+  "keywords": [
+    "string",
+    "random",
+    "regexp"
+  ],
+  "author": "cho45",
+  "license": "BSD"
+}
