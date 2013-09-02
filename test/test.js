@@ -27,7 +27,8 @@ var patterns = [
 	/^aa|bb$/,
 	/^(aa|bb)$/,
 	/^(aa|bb(cc|dd))$/,
-	/^(a(xx|yy)a|bb(cc|dd))$/
+	/^(a(xx|yy)a|bb(cc|dd))$/,
+	/http:\/\/[a-z]{3,8}\.example\.com\/([a-z\d]+\/){3}/
 ];
 
 for (var x = 0, pattern; (pattern = patterns[x]); x++) {
@@ -38,4 +39,3 @@ for (var x = 0, pattern; (pattern = patterns[x]); x++) {
 	}
 	util.print('\n\n');
 }
-
