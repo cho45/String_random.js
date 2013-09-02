@@ -11,7 +11,7 @@ SYNOPSIS
 
 ```
 
-String.random = require('String_random').String_random; // or use String_random directory;
+String.random = require('String_random').String_random; // or use String_random directly;
 
 var randomString = String.random(/\d\d\d/);
 console.log(randomString); //=> "000", "010", "432" or etc...
