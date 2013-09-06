@@ -1,6 +1,6 @@
 {
   "name": "string_random.js",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Generating random string from regexp pattern.",
   "main": "lib/String_random.js",
   "directories": {
