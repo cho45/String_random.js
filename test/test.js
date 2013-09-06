@@ -9,8 +9,25 @@ assert.throws(function () {
 	String.random('[^not]');
 });
 
+assert.throws(function () {
+	String.random(/aa\bcc/);
+});
+
+assert.throws(function () {
+	String.random(/aa\Bcc/);
+});
+
+assert.throws(function () {
+	String.random(/(?!foo).../);
+});
+
+assert.throws(function () {
+	String.random('(aaa');
+});
+
 var patterns = [
 	/^$/,
+	/^\$/, // no warnings
 	/^\d{4}$/,
 	/^\w{4}$/,
 	/^\D{4}$/,
