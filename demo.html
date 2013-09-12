@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Demo of String_random.js</title>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+		<link rel="stylesheet" type="text/css" href="http://getbootstrap.com/dist/css/bootstrap.css" media="screen,tv"/>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script type="text/javascript" src="lib/String_random.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div style="text-align: center">
+				<h1>Demo of String_random.js</h1>
+
+				<p class="lead"><a href="https://github.com/cho45/String_random.js">String_random.js</a> is a library for generating random string from a regular experession.</p>
+			</div>
+
+			<form style="text-align: center; padding: 50px 0" class="">
+				<div class="form-group">
+					<input type="text" name="regexp" placeholder="RegExp" class="form-control input-lg" style="" required/>
+				</div>
+				<input type="submit" value="Generate" class="btn btn-primary btn-lg"/>
+				<div>
+					Examples:
+					<a href="javascript:generate(/\d+/)">Numbers</a>,
+					<a href="javascript:generate(/https?:\/\/[a-z]{3,8}\.example\.com\/([a-z\d]+\/){3}/)">URL</a>,
+					<!--
+					<a href='javascript:generate(/(?:&lt;(p|div) title="[^"]+"&gt;[^&lt;]+&lt;\/\1&gt;)+/)'>HTML</a>,
+					-->
+				</div>
+			</form>
+
+			<div class="jumbotron" id="output">
+			</div>
+		</div>
+
+		<script>
+			function generate (re) {
+				var input = $('input[name=regexp]');
+				var output = $('#output').empty();
+
+				if (!re) {
+					re = input.val();
+				}
+
+				input.val(re.source || re);
+				location.hash = '#' + encodeURIComponent(input.val());
+
+				for (var i = 0; i < 10; i++) {
+					$('<p/>').text(String_random(re)).appendTo(output);
+				}
+				
+			}
+
+			$("form").submit(function () {
+				generate();
+				return false;
+			});
+
+			if (location.hash) {
+				generate(decodeURIComponent(location.hash.slice(1)));
+			}
+		</script>
+	</body>
+</html>
