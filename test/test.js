@@ -44,6 +44,8 @@ var patterns = [
 	/^...$/,
 	/^aa|bb$/,
 	/^(a|b)$/,
+	/^((a|b)c)$/,
+	/^(()a)$/,
 	/^(aa|bb)$/,
 	/^(aa|bb(cc|dd))$/,
 	/^(a(xx|yy)a|bb(cc|dd))$/,
