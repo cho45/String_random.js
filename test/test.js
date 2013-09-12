@@ -6,10 +6,6 @@ var util = require('util');
 String.random = require('../lib/String_random.js').String_random;
 
 assert.throws(function () {
-	String.random('[^not]');
-});
-
-assert.throws(function () {
 	String.random(/aa\bcc/);
 });
 
@@ -36,6 +32,8 @@ var patterns = [
 	/^\w{1,2}$/,
 	/^[\d]$/,
 	/^[abc]+$/,
+	/^[a|b]+$/,
+	/^[^\W]+$/,
 	/^[$-]+$/, // no warnings
 	/^[a-c]+$/, // no warnings
 	/^[a\-c]+$/, // no warnings
@@ -49,8 +47,9 @@ var patterns = [
 	/^(aa|bb)$/,
 	/^(aa|bb(cc|dd))$/,
 	/^(a(xx|yy)a|bb(cc|dd))$/,
-	/http:\/\/[a-z]{3,8}\.example\.com\/([a-z\d]+\/){3}/,
-	/(?:<(p|div)>foo<\/\1>)+/,
+	/^http:\/\/[a-z]{3,8}\.example\.com\/([a-z\d]+\/){3}$/,
+	/(?:<(p|div) title="[^"]+">[^<]+<\/\1>)+/,
+	/^[カコ][ッー]{1,3}?[フヒ]{1,3}[ィェー]{1,3}[ズス][クグュ][リイ][プブ]{1,3}[トドォ]{1,2}$/,
 	/(aa|(bb|cc))\1\2/
 ];
 
