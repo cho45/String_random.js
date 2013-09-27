@@ -7,6 +7,36 @@
 		<link rel="stylesheet" type="text/css" href="http://getbootstrap.com/dist/css/bootstrap.css" media="screen,tv"/>
 		<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 		<script type="text/javascript" src="lib/String_random.js"></script>
+		<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+
+		<meta name="keywords" content="JavaScript,Library,RegExp,Regular Expression,Random String"/>
+		<meta name="description" content="String_random.js is a library for generating random string from a regular experession."/>
+
+		<meta property="og:email" content="cho45@lowreal.net" />
+		<meta property="fb:admins" content="cho45" />
+
+		<meta name="twitter:site" content="cho45"/>
+		<meta name="twitter:creator" content="cho45"/>
+
+		<script type="text/javascript">
+
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-7079167-9']);
+			_gaq.push(['_trackPageview']);
+
+			(function() {
+				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+					var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			})();
+
+		</script>
+
+		<style>
+			body {
+				padding: 20px 0;
+			}
+		</style>
 	</head>
 	<body>
 		<div class="container">
@@ -16,7 +46,7 @@
 				<p class="lead"><a href="https://github.com/cho45/String_random.js">String_random.js</a> is a library for generating random string from a regular experession.</p>
 			</div>
 
-			<form style="text-align: center; padding: 50px 0" class="">
+			<form style="text-align: center; padding: 30px 0" class="">
 				<div class="form-group">
 					<input type="text" name="regexp" placeholder="RegExp" class="form-control input-lg" style="" required/>
 				</div>
@@ -31,11 +61,85 @@
 				</div>
 			</form>
 
-			<div class="jumbotron" id="output">
+			<div style="text-align: center; margin: 10px">
+				<script type="text/javascript"><!--
+				google_ad_client = "ca-pub-4629424540171624";
+				if (window.screen.width > 700) {
+					/* String_random.js */
+					google_ad_slot = "8822560565";
+					google_ad_width = 728;
+					google_ad_height = 90;
+				} else {
+					/* 汎用スマフォ */
+					google_ad_slot = "7984955760";
+					google_ad_width = 320;
+					google_ad_height = 50;
+				}
+				//-->
+				</script>
+				<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+			</div>
+
+			<div style="position: relative">
+				<div class="jumbotron" id="output" style="padding-top: 90px">
+				</div>
+				<div style="position: absolute; top: 30px; left: 60px" id="twitter-button">
+				</div>
+			</div>
+
+
+			<div style="text-align: center">
+				<script type="text/javascript"><!--
+				google_ad_client = "ca-pub-4629424540171624";
+				if (window.screen.width > 700) {
+					/* String_random.js */
+					google_ad_slot = "8822560565";
+					google_ad_width = 728;
+					google_ad_height = 90;
+				} else {
+					/* 汎用スマフォ */
+					google_ad_slot = "7984955760";
+					google_ad_width = 320;
+					google_ad_height = 50;
+				}
+				//-->
+				</script>
+				<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
 			</div>
 		</div>
 
 		<script>
+			(function(window) {
+
+				// exit if the browser implements that event
+				if ( "onhashchange" in window.document.body ) { return; }
+
+				var location = window.location,
+				oldURL = location.href,
+				oldHash = location.hash;
+
+				// check the location hash on a 100ms interval
+				setInterval(function() {
+					var newURL = location.href,
+					newHash = location.hash;
+
+					// if the hash has changed and a handler has been bound...
+					if ( newHash != oldHash && typeof window.onhashchange === "function" ) {
+						// execute the handler
+						window.onhashchange({
+							type: "hashchange",
+							oldURL: oldURL,
+							newURL: newURL
+						});
+
+						oldURL = newURL;
+						oldHash = newHash;
+					}
+				}, 100);
+
+			})(window);
+
+
 			function generate (re) {
 				var input = $('input[name=regexp]');
 				var output = $('#output').empty();
@@ -50,7 +154,6 @@
 				for (var i = 0; i < 10; i++) {
 					$('<p/>').text(String_random(re)).appendTo(output);
 				}
-				
 			}
 
 			$("form").submit(function () {
@@ -58,9 +161,19 @@
 				return false;
 			});
 
-			if (location.hash) {
+			window.onhashchange = function (a, b) {
 				generate(decodeURIComponent(location.hash.slice(1)));
-			}
+
+				$('<a href="https://twitter.com/share" class="twitter-share-button" data-via="cho45" data-size="large" data-hashtags="string_random_js">Tweet</a>').
+					attr('data-url', location.href).
+					appendTo( $('#twitter-button').empty() );
+
+				if (typeof twttr !== 'undefined' && typeof twttr.widgets !== 'undefined') {
+					twttr.widgets.load();
+				}
+			};
+
+			window.onhashchange();
 		</script>
 	</body>
 </html>
