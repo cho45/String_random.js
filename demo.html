@@ -4,10 +4,10 @@
 		<title>Demo of String_random.js</title>
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-		<link rel="stylesheet" type="text/css" href="http://getbootstrap.com/dist/css/bootstrap.css" media="screen,tv"/>
-		<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
 		<script type="text/javascript" src="lib/String_random.js"></script>
-		<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+		<script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
 
 		<meta name="keywords" content="JavaScript,Library,RegExp,Regular Expression,Random String"/>
 		<meta name="description" content="String_random.js is a library for generating random string from a regular experession."/>
@@ -18,17 +18,15 @@
 		<meta name="twitter:site" content="cho45"/>
 		<meta name="twitter:creator" content="cho45"/>
 
-		<script type="text/javascript">
 
-			var _gaq = _gaq || [];
-			_gaq.push(['_setAccount', 'UA-7079167-9']);
-			_gaq.push(['_trackPageview']);
+		<script>
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-			(function() {
-				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-					var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-			})();
+			ga('create', 'UA-7079167-9', 'stfuawsc.com');
+			ga('send', 'pageview');
 
 		</script>
 
@@ -77,7 +75,7 @@
 				}
 				//-->
 				</script>
-				<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+				<script type="text/javascript" src="//pagead2.googlesyndication.com/pagead/show_ads.js"></script>
 			</div>
 
 			<div style="position: relative">
@@ -104,7 +102,7 @@
 				}
 				//-->
 				</script>
-				<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+				<script type="text/javascript" src="//pagead2.googlesyndication.com/pagead/show_ads.js"></script>
 			</div>
 		</div>
 
@@ -144,12 +142,14 @@
 				var input = $('input[name=regexp]');
 				var output = $('#output').empty();
 
+
 				if (!re) {
 					re = input.val();
 				}
 
 				input.val(re.source || re);
 				location.hash = '#' + encodeURIComponent(input.val());
+				document.title = 'String_random.js ' + input.val();
 
 				for (var i = 0; i < 10; i++) {
 					$('<p/>').text(String_random(re)).appendTo(output);
