@@ -15,7 +15,7 @@ console.log(randomString); //=> "000", "010", "432" or etc...
 
 ```
 
-SUPPRTED SYNTAXES
+SUPPORTED SYNTAXES
 =================
 
  * `*` `+` `?` `{n,n}`: quantifier
