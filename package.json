@@ -2,6 +2,7 @@
   "name": "string_random.js",
   "version": "0.0.4",
   "description": "Generating random string from regexp pattern.",
+  "type":"module",
   "main": "lib/String_random.js",
   "directories": {
     "test": "test"

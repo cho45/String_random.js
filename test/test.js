@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-var assert = require('assert');
-var util = require('util');
+import assert from 'assert';
+import { String_random } from '../lib/String_random.js';
 
-String.random = require('../lib/String_random.js').String_random;
+String.random = String_random;
 
 assert.throws(function () {
 	String.random(/aa\bcc/);
@@ -58,8 +58,8 @@ var patterns = [
 for (var x = 0, pattern; (pattern = patterns[x]); x++) {
 	for (var i = 0; i < 1000; i++) {
 		var val = String.random(pattern);
-		util.print(val + ' ');
+		console.log(val + ' ');
 		assert.ok(pattern.test(val), pattern.source + ' -> ' + val + '');
 	}
-	util.print('\n\n');
+	console.log('\n\n');
 }
