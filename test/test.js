@@ -28,6 +28,82 @@ test('throws on invalid regexp string', (t) => {
   });
 });
 
+
+test('SYNOPSIS example: generates 3-digit string', (t) => {
+  for (let i = 0; i < 100; i++) {
+    const val = String_random(/\d\d\d/);
+    assert.match(val, /^\d{3}$/);
+  }
+});
+
+test('quantifier: * (zero or more)', (t) => {
+  for (let i = 0; i < 100; i++) {
+    const val = String_random(/a*/);
+    assert.match(val, /^a*$/);
+  }
+});
+
+test('quantifier: + (one or more)', (t) => {
+  for (let i = 0; i < 100; i++) {
+    const val = String_random(/a+/);
+    assert.match(val, /^a+$/);
+    assert.ok(val.length >= 1);
+  }
+});
+
+test('quantifier: ? (zero or one)', (t) => {
+  for (let i = 0; i < 100; i++) {
+    const val = String_random(/a?/);
+    assert.match(val, /^a?$/);
+    assert.ok(val.length <= 1);
+  }
+});
+
+test('quantifier: {n,n} (range)', (t) => {
+  for (let i = 0; i < 100; i++) {
+    const val = String_random(/a{2,4}/);
+    assert.match(val, /^a{2,4}$/);
+    assert.ok(val.length >= 2 && val.length <= 4);
+  }
+});
+
+test('dot: . matches any allowed char', (t) => {
+  for (let i = 0; i < 100; i++) {
+    const val = String_random(/.../);
+    assert.strictEqual(val.length, 3);
+    assert.match(val, /^[a-zA-Z0-9 !"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]{3}$/);
+  }
+});
+
+test('character class: [abc]', (t) => {
+  for (let i = 0; i < 100; i++) {
+    const val = String_random(/[abc]{5}/);
+    assert.match(val, /^[abc]{5}$/);
+  }
+});
+
+test('character class: range [a-z]', (t) => {
+  for (let i = 0; i < 100; i++) {
+    const val = String_random(/[a-z]{3}/);
+    assert.match(val, /^[a-z]{3}$/);
+  }
+});
+
+test('grouping: (ab)+', (t) => {
+  for (let i = 0; i < 100; i++) {
+    const val = String_random(/(ab)+/);
+    assert.match(val, /^(ab)+$/);
+  }
+});
+
+test('alternation: a|b', (t) => {
+  for (let i = 0; i < 100; i++) {
+    const val = String_random(/a|b/);
+    assert.match(val, /^a$|^b$/);
+  }
+});
+
+
 const patterns = [
   /^$/,
   /^\$/, // no warnings
