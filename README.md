@@ -24,7 +24,7 @@ SUPPORTED SYNTAXES
  * `( .. )` : simple grouping
  * `|` : alternative
 
-WILL NOT SUPPRT
+WILL NOT SUPPORT
 ===============
 
  * `^` : beginning of line
