@@ -99,18 +99,43 @@ test('character class: range [a-z]', (t) => {
   }
 });
 
-test('grouping: (ab)+', (t) => {
+test('quantifier: {n} (fixed)', (t) => {
   for (let i = 0; i < 100; i++) {
-    const val = String_random(/(ab)+/, { random });
-    assert.match(val, /^(ab)+$/);
+    const val = String_random(/a{5}/, { random });
+    assert.match(val, /^a{5}$/);
+    assert.strictEqual(val.length, 5);
   }
 });
 
-test('alternation: a|b', (t) => {
+test('throws on invalid bracket', (t) => {
+  assert.throws(() => {
+    String_random('[abc', { random });
+  });
+});
+
+test('throws on invalid brace', (t) => {
+  assert.throws(() => {
+    String_random('a{2,', { random });
+  });
+});
+
+test('backreference: (a)(b)\\2\\1', (t) => {
   for (let i = 0; i < 100; i++) {
-    const val = String_random(/a|b/, { random });
-    assert.match(val, /^a$|^b$/);
+    const val = String_random(/(a)(b)\2\1/, { random });
+    assert.match(val, /^abba$/);
   }
+});
+
+test('throws on unsupported regexp: positive lookahead', (t) => {
+  assert.throws(() => {
+    String_random(/(?=foo).../, { random });
+  });
+});
+
+test('throws on unsupported regexp: lookbehind', (t) => {
+  assert.throws(() => {
+    String_random(/(?<=foo).../, { random });
+  });
 });
 
 
