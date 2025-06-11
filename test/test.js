@@ -95,6 +95,12 @@ test('character class: [abc]', (t) => {
   }
 });
 
+test('character class: [1-2]', (t) => {
+  const random = seededRandom(42);
+  const val = String_random(/[1-2]{5}/, { random });
+  assert.strictEqual(val, '21222');
+});
+
 test('character class: range [a-z]', (t) => {
   for (let i = 0; i < 100; i++) {
     const val = String_random(/[a-z]{3}/, { random });
