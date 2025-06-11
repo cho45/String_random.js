@@ -4,12 +4,15 @@ import assert from 'assert';
 import { String_random } from '../lib/String_random.js';
 import test from 'node:test';
 
-// シード付き乱数生成器
+// シード付き乱数生成器（Xorshift32）
 function seededRandom(seed) {
-  let x = Math.sin(seed) * 10000;
+  let x = seed >>> 0;
   return function() {
-    x = Math.sin(x) * 10000;
-    return x - Math.floor(x);
+    // Xorshift32アルゴリズム
+    x ^= x << 13;
+    x ^= x >>> 17;
+    x ^= x << 5;
+    return (x >>> 0) / 0x100000000;
   };
 }
 const random = seededRandom(42);
