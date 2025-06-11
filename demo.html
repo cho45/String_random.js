@@ -7,7 +7,6 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
 		<script type="text/javascript" src="lib/String_random.js"></script>
-		<script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
 
 		<meta name="keywords" content="JavaScript,Library,RegExp,Regular Expression,Random String"/>
 		<meta name="description" content="String_random.js is a library for generating random string from a regular experession."/>
@@ -18,21 +17,13 @@
 		<meta name="twitter:site" content="cho45"/>
 		<meta name="twitter:creator" content="cho45"/>
 
-
-		<script>
-			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-			ga('create', 'UA-7079167-9', 'stfuawsc.com');
-			ga('send', 'pageview');
-
-		</script>
-
 		<style>
 			body {
 				padding: 20px 0;
+			}
+
+			.twitter-share-button {
+				margin-left: 10px;
 			}
 		</style>
 	</head>
@@ -59,50 +50,11 @@
 				</div>
 			</form>
 
-			<div style="text-align: center; margin: 10px">
-				<script type="text/javascript"><!--
-				google_ad_client = "ca-pub-4629424540171624";
-				if (window.screen.width > 700) {
-					/* String_random.js */
-					google_ad_slot = "8822560565";
-					google_ad_width = 728;
-					google_ad_height = 90;
-				} else {
-					/* 汎用スマフォ */
-					google_ad_slot = "7984955760";
-					google_ad_width = 320;
-					google_ad_height = 50;
-				}
-				//-->
-				</script>
-				<script type="text/javascript" src="//pagead2.googlesyndication.com/pagead/show_ads.js"></script>
-			</div>
-
 			<div style="position: relative">
 				<div class="jumbotron" id="output" style="padding-top: 90px">
 				</div>
-				<div style="position: absolute; top: 30px; left: 60px" id="twitter-button">
-				</div>
-			</div>
-
-
-			<div style="text-align: center">
-				<script type="text/javascript"><!--
-				google_ad_client = "ca-pub-4629424540171624";
-				if (window.screen.width > 700) {
-					/* String_random.js */
-					google_ad_slot = "8822560565";
-					google_ad_width = 728;
-					google_ad_height = 90;
-				} else {
-					/* 汎用スマフォ */
-					google_ad_slot = "7984955760";
-					google_ad_width = 320;
-					google_ad_height = 50;
-				}
-				//-->
-				</script>
-				<script type="text/javascript" src="//pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+				<!-- div style="position: absolute; top: 30px; left: 60px" id="twitter-button">
+				</div -->
 			</div>
 		</div>
 
@@ -145,14 +97,27 @@
 
 				if (!re) {
 					re = input.val();
+					if (!re) return;
 				}
 
 				input.val(re.source || re);
 				location.hash = '#' + encodeURIComponent(input.val());
-				document.title = 'String_random.js ' + input.val();
+				document.title = input.val();
 
 				for (var i = 0; i < 10; i++) {
-					$('<p/>').text(String_random(re)).appendTo(output);
+					var generated = String_random(re);
+
+					var p = $('<p/>').text(generated);
+					const params = new URLSearchParams();
+					params.set('url', location.href);
+					params.set('text', `${generated} #string_random_js`);
+
+					var url = `https://twitter.com/intent/tweet?${params.toString()}`;
+
+					$('<a href="" class="btn btn-sm btn-info twitter-share-button">Tweet</a>').
+						attr('href', url).
+						appendTo(p);
+					p.appendTo(output);
 				}
 			}
 
@@ -163,14 +128,6 @@
 
 			window.onhashchange = function (a, b) {
 				generate(decodeURIComponent(location.hash.slice(1)));
-
-				$('<a href="https://twitter.com/share" class="twitter-share-button" data-via="cho45" data-size="large" data-hashtags="string_random_js">Tweet</a>').
-					attr('data-url', location.href).
-					appendTo( $('#twitter-button').empty() );
-
-				if (typeof twttr !== 'undefined' && typeof twttr.widgets !== 'undefined') {
-					twttr.widgets.load();
-				}
 			};
 
 			window.onhashchange();
