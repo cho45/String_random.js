@@ -8,6 +8,7 @@
     "test": "test"
   },
   "scripts": {
+    "serve": "npx serve .",
     "test": "node --test test/test.js"
   },
   "repository": "",

@@ -5,8 +5,6 @@
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-		<script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-		<script type="text/javascript" src="lib/String_random.js"></script>
 
 		<meta name="keywords" content="JavaScript,Library,RegExp,Regular Expression,Random String"/>
 		<meta name="description" content="String_random.js is a library for generating random string from a regular experession."/>
@@ -40,10 +38,10 @@
 					<input type="text" name="regexp" placeholder="RegExp" class="form-control input-lg" style="" required/>
 				</div>
 				<input type="submit" value="Generate" class="btn btn-primary btn-lg"/>
-				<div>
+				<div id="examples">
 					Examples:
-					<a href="javascript:generate(/\d+/)">Numbers</a>,
-					<a href="javascript:generate(/https?:\/\/[a-z]{3,8}\.example\.com\/([a-z\d]+\/){3}/)">URL</a>,
+					<a href="javascript:void()" data-regexp="\d+">Numbers</a>,
+					<a href="javascript:void()" data-regexp="https?:\/\/[a-z]{3,8}\.example\.com\/([a-z\d]+\/){3}">URL</a>,
 					<!--
 					<a href='javascript:generate(/(?:&lt;(p|div) title="[^"]+"&gt;[^&lt;]+&lt;\/\1&gt;)+/)'>HTML</a>,
 					-->
@@ -58,7 +56,9 @@
 			</div>
 		</div>
 
-		<script>
+		<script type="module">
+			import { String_random } from './lib/String_random.js';
+
 			(function(window) {
 
 				// exit if the browser implements that event
@@ -91,39 +91,51 @@
 
 
 			function generate (re) {
-				var input = $('input[name=regexp]');
-				var output = $('#output').empty();
-
+				var input = document.querySelector('input[name=regexp]');
+				var output = document.getElementById('output');
+				output.innerHTML = '';
 
 				if (!re) {
-					re = input.val();
+					re = input.value;
 					if (!re) return;
 				}
 
-				input.val(re.source || re);
-				location.hash = '#' + encodeURIComponent(input.val());
-				document.title = input.val();
+				input.value = re.source || re;
+				location.hash = '#' + encodeURIComponent(input.value);
+				document.title = input.value;
 
 				for (var i = 0; i < 10; i++) {
 					var generated = String_random(re);
 
-					var p = $('<p/>').text(generated);
+					var p = document.createElement('p');
+					p.textContent = generated;
 					const params = new URLSearchParams();
 					params.set('url', location.href);
 					params.set('text', `${generated} #string_random_js`);
 
 					var url = `https://twitter.com/intent/tweet?${params.toString()}`;
 
-					$('<a href="" class="btn btn-sm btn-info twitter-share-button">Tweet</a>').
-						attr('href', url).
-						appendTo(p);
-					p.appendTo(output);
+					var a = document.createElement('a');
+					a.href = url;
+					a.className = 'btn btn-sm btn-info twitter-share-button';
+					a.textContent = 'Tweet';
+					p.appendChild(a);
+					output.appendChild(p);
 				}
 			}
 
-			$("form").submit(function () {
+			document.getElementById('examples').addEventListener('click', function (e) {
+				if (e.target.tagName === 'A') {
+					e.preventDefault();
+					e.stopPropagation();
+					const regexp = e.target.getAttribute('data-regexp');
+					generate(regexp);
+				}
+			});
+
+			document.querySelector('form').addEventListener('submit', function (e) {
 				generate();
-				return false;
+				e.preventDefault();
 			});
 
 			window.onhashchange = function (a, b) {
