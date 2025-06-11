@@ -169,38 +169,20 @@
 		<script type="module">
 			import { String_random } from './lib/String_random.js';
 
-			(function(window) {
-
-				// exit if the browser implements that event
-				if ( "onhashchange" in window.document.body ) { return; }
-
-				var location = window.location,
-				oldURL = location.href,
-				oldHash = location.hash;
-
-				// check the location hash on a 100ms interval
-				setInterval(function() {
-					var newURL = location.href,
-					newHash = location.hash;
-
-					// if the hash has changed and a handler has been bound...
-					if ( newHash != oldHash && typeof window.onhashchange === "function" ) {
-						// execute the handler
-						window.onhashchange({
-							type: "hashchange",
-							oldURL: oldURL,
-							newURL: newURL
-						});
-
-						oldURL = newURL;
-						oldHash = newHash;
-					}
-				}, 100);
-
-			})(window);
+			function seededRandom(seed) {
+				let x = seed >>> 0;
+				return function me() {
+					// Xorshift32アルゴリズム
+					x ^= x << 13;
+					x ^= x >>> 17;
+					x ^= x << 5;
+					me.seed = x;
+					return (x >>> 0) / 0x100000000;
+				};
+			}
 
 
-			function generate (re) {
+			function generate (re, seed) {
 				var input = document.querySelector('input[name=regexp]');
 				var output = document.getElementById('output');
 				output.innerHTML = '';
@@ -210,23 +192,33 @@
 					if (!re) return;
 				}
 
+				if (typeof seed === "undefined") seed = new Date().getMilliseconds();
+
 				input.value = re.source || re;
-				location.hash = '#' + encodeURIComponent(input.value);
+
+				const params = new URLSearchParams();
+				params.set('seed', seed);
+				params.set('regexp', input.value);
+
+				location.hash = '#' + params.toString();
 				document.title = input.value;
 
-				for (var i = 0; i < 10; i++) {
-					var generated = String_random(re);
+				console.log('seed:', seed);
+				const random = seededRandom(seed);
+				for (let i = 0; i < 10; i++) {
+					const generated = String_random(re, { random });
 
-					var p = document.createElement('p');
+					const p = document.createElement('p');
 					p.textContent = generated;
 					const params = new URLSearchParams();
 					params.set('url', location.href);
 					params.set('text', `${generated} #string_random_js`);
 
-					var url = `https://twitter.com/intent/tweet?${params.toString()}`;
+					const url = `https://twitter.com/intent/tweet?${params.toString()}`;
 
-					var a = document.createElement('a');
+					const a = document.createElement('a');
 					a.href = url;
+					a.target = '_blank';
 					a.className = 'btn btn-sm btn-info twitter-share-button';
 					a.textContent = 'Tweet';
 					p.appendChild(a);
@@ -249,7 +241,22 @@
 			});
 
 			window.onhashchange = function (a, b) {
-				generate(decodeURIComponent(location.hash.slice(1)));
+				const hash = location.hash.replace(/^#/, '');
+				if (hash.match(/regexp=/)) {
+					const params = new URLSearchParams(hash);
+					const seed = parseInt(params.get('seed'), 10);
+					if (params.has('regexp')) {
+						if (seed) {
+							generate(new RegExp(params.get('regexp')), seed);
+						} else {
+							generate(new RegExp(params.get('regexp')));
+						}
+						return;
+					}
+				} else {
+					// backward compatibility
+					generate(new RegExp(decodeURIComponent(hash)));
+				}
 			};
 
 			window.onhashchange();
