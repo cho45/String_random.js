@@ -4,7 +4,6 @@
 		<title>Demo of String_random.js</title>
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 		<meta name="keywords" content="JavaScript,Library,RegExp,Regular Expression,Random String"/>
 		<meta name="description" content="String_random.js is a library for generating random string from a regular experession."/>
@@ -16,13 +15,123 @@
 		<meta name="twitter:creator" content="cho45"/>
 
 		<style>
-			body {
-				padding: 20px 0;
-			}
-
-			.twitter-share-button {
-				margin-left: 10px;
-			}
+	body {
+		padding: 32px 0;
+		background: #f8f8fa;
+		color: #23242a;
+		font-family: 'Fira Mono', 'Menlo', 'Consolas', 'Monaco', monospace;
+	}
+	.container {
+		max-width: 900px;
+		margin: 0 auto;
+		background: #fff;
+		border-radius: 10px;
+		box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+		padding: 32px 32px 24px 32px;
+	}
+	h1 {
+		font-size: 2.2em;
+		font-weight: bold;
+		letter-spacing: 0.02em;
+		color: #ffb86c;
+		margin-bottom: 0.5em;
+	}
+	.lead {
+		color: #666;
+		font-size: 1.1em;
+		margin-bottom: 2em;
+	}
+	form {
+		margin-bottom: 2em;
+	}
+	input[name="regexp"] {
+		font-family: inherit;
+		font-size: 1.2em;
+		background: #f8f8fa;
+		color: #23242a;
+		border: 1.5px solid #bbb;
+		border-radius: 6px;
+		padding: 12px 16px;
+		margin-bottom: 12px;
+		transition: border 0.2s;
+		width: 100%;
+		box-sizing: border-box;
+	}
+	input[name="regexp"]:focus {
+		border-color: #ffb86c;
+		outline: none;
+	}
+	input[type="submit"], .btn-primary {
+		background: #ffb86c;
+		color: #23242a;
+		border: none;
+		font-weight: bold;
+		transition: background 0.2s;
+		font-size: 1.3em;
+		padding: 16px 40px;
+		border-radius: 8px;
+		box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+		margin-bottom: 10px;
+	}
+	input[type="submit"]:hover, .btn-primary:hover {
+		background: #ffa94d;
+	}
+	#examples {
+		margin-top: 10px;
+		font-size: 0.98em;
+		color: #0077b6;
+	}
+	#examples a {
+		color: #0077b6;
+		text-decoration: underline dotted;
+		margin: 0 2px;
+		cursor: pointer;
+		transition: color 0.2s;
+	}
+	#examples a:hover {
+		color: #ffb86c;
+	}
+	.jumbotron {
+		background: #f8f8fa;
+		border-radius: 8px;
+		box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+		padding: 40px 20px 20px 20px;
+	}
+	.jumbotron p {
+		font-size: 1.1em;
+		background: #fffbe6;
+		border-left: 4px solid #ffb86c;
+		padding: 8px 16px;
+		margin-bottom: 18px;
+		border-radius: 4px;
+		word-break: break-all;
+		color: #23242a;
+		font-family: inherit;
+	}
+	.twitter-share-button {
+		margin-left: 10px;
+		background: #1da1f2;
+		color: #fff !important;
+		border-radius: 4px;
+		padding: 2px 10px;
+		font-size: 0.95em;
+		text-decoration: none;
+		transition: background 0.2s;
+		border: none;
+		display: inline-block;
+	}
+	.twitter-share-button:hover {
+		background: #0d8ddb;
+	}
+	@media (max-width: 900px) {
+		.container {
+			max-width: 100vw;
+			padding: 12px 2vw 12px 2vw;
+		}
+		.jumbotron {
+			padding: 24px 4vw 12px 4vw;
+		}
+	}
 		</style>
 	</head>
 	<body>
@@ -35,7 +144,7 @@
 
 			<form style="text-align: center; padding: 30px 0" class="">
 				<div class="form-group">
-					<input type="text" name="regexp" placeholder="RegExp" class="form-control input-lg" style="" required/>
+					<input type="text" name="regexp" placeholder="RegExp" class="form-control input-lg" required/>
 				</div>
 				<input type="submit" value="Generate" class="btn btn-primary btn-lg"/>
 				<div id="examples">
